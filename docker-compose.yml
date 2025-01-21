@@ -1,0 +1,24 @@
+services:
+  ollama:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ollama
+    environment:
+      - TZ=America/Sao_Paulo
+    ports:
+      - "11434:11434"
+    healthcheck:
+      test: ["CMD", "curl", "-sSf", "http://localhost:11434"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: always
+    networks:
+      - ollama_net
+
+networks:
+  ollama_net:
+    name: ollama_net
+    driver: bridge
+    attachable: true
