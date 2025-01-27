@@ -16,9 +16,15 @@ services:
     restart: always
     networks:
       - ollama_net
+    volumes:
+      - ollama_data:/data  # Monta um volume persistente para os dados
 
 networks:
   ollama_net:
     name: ollama_net
     driver: bridge
     attachable: true
+
+volumes:
+  ollama_data:
+    driver: local  # Usa o driver local para persistência
